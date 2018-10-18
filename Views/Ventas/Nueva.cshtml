@@ -1,0 +1,244 @@
+﻿
+@* estilos *@
+<style>
+    .dropdown-menu
+    {
+        min-width:300px;
+    }
+</style>
+
+<hr />
+
+<div class="container" ng-app="LaVendimiApp">
+
+    <form ng-controller="ventaController" name="ventaForm">
+
+        @* titulo *@
+        <div style="float:left;" class="form-group">
+            <h4> {{ titulo }} </h4>
+        </div>
+
+        @* folio *@
+        <div style="float:right;color:green;" class="form-group">
+            <strong> Folio: {{ ('000' + folio).slice(-4) }} </strong>
+        </div>
+
+        <br />
+
+        @* cliente *@
+        <div class="input-group">
+
+            <div class="form-row" style="width:100%;">
+
+                <div style="width:55%;">
+                    <div class="input-group" style="width:100%;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:90px;">Cliente</span>
+                        </div>
+                        <input type="search"
+                               class="form-control"
+                               id="clienteSeleccionado"
+                               ng-model="clienteSeleccionado"
+                               typeahead-min-length="3"
+                               uib-typeahead=" ('000' + cliente.id).slice(-4) + ' - ' + cliente.nombre + ' ' + cliente.paterno + ' ' + cliente.materno as ('000' + cliente.id).slice(-4) + ' - ' + cliente.nombre + ' ' + cliente.paterno + ' ' + cliente.materno for cliente in clientes | filter:$viewValue | limitTo:8"
+                               typeahead-input-formatter="formatoClientes($model)"
+                               typeahead-editable="false"
+                               typeahead-on-select="onSelectCliente($item)" />
+                        <button class="btn btn-danger" ng-hide="!cliente" ng-click="destruirCliente()">X</button>
+                    </div>
+                </div>
+
+                <div style="width:2%;"></div>
+
+                <div style="width:33%;">
+                    <div class="input-group" style="width:100%;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:90px;">RFC</span>
+                        </div>
+                        <label class="form-control"> {{ cliente.rfc }} </label>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+
+        @* articulo *@
+        <div class="input-group">
+
+            <div class="form-row" style="width:100%;">
+
+                <div style="width:55%;">
+                    <div class="input-group" style="width:100%;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:90px;">Articulo</span>
+                        </div>
+                        <input type="text"
+                               class="form-control"
+                               id="articuloSeleccionado"
+                               ng-model="articuloSeleccionado"
+                               typeahead-min-length="3"
+                               uib-typeahead=" ('000' + articulo.id).slice(-4) + ' - ' + articulo.descripcion + ' ' + articulo.modelo  as ('000' + articulo.id).slice(-4) + ' - ' + articulo.descripcion + ' ' + articulo.modelo for articulo in articulos | filter:$viewValue | limitTo:8"
+                               typeahead-input-formatter="formatoArticulos($model)"
+                               typeahead-editable="false"
+                               typeahead-on-select="onSelectArticulo($item, $model, $label)" />
+                        <button class="btn btn-danger" ng-hide="!articulo" ng-click="destruirArticulo()">X</button>
+                    </div>
+                </div>
+
+                <div style="width:2%;"></div>
+
+                <div style="width:33%;">
+                    <button class="btn btn-primary" ng-click="agregarArticulo()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+
+        @* tabla articulos *@
+        <table class="table table-striped table-hover" ng-disabled="desactivarTablaArticulos">
+            <tr>
+                <td style="text-align:left;">
+                    <b>Descripcion</b>
+                </td>
+                <td style="text-align:left;">
+                    <b>Modelo</b>
+                </td>
+                <td style="text-align:center;">
+                    <b>Cantidad</b>
+                </td>
+                <td style="text-align:right;">
+                    <b>Precio</b>
+                </td>
+                <td style="text-align:right;">
+                    <b>Importe</b>
+                </td>
+                <td style="text-align:center;">
+                    <b>Quitar</b>
+                </td>
+            </tr>
+            <tr ng-repeat="articulo in articulosAgregados">
+                <td style="text-align:left;">
+                    {{ articulo.descripcion }}
+                </td>
+                <td style="text-align:left;">
+                    {{ articulo.modelo }}
+                </td>
+                <td style="text-align:center;">
+                    <input type="number" ng-model="articulo.cantidad" style="text-align:center;" ng-change="calcularImporte(articulo)" />
+                </td>
+                <td style="text-align:right;">
+                    {{ articulo.precioModificado | currency }}
+                </td>
+                <td style="text-align:right;">
+                    {{ articulo.importe | currency }}
+                </td>
+                <td style="text-align:center;">
+                    <button class="btn btn-danger" ng-click="quitarArticulo(articulo)">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+    
+        <div class="container" ng-show="venta.subtotal > 0">
+
+            <div style="float:right;width:300px;">
+
+                @* calculos *@
+                <div>
+                    <div class="input-group" style="text-align:right;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:150px;">ENGANCHE</span>
+                        </div>
+                        <label class="form-control"> {{ venta.enganche | currency }} </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="input-group" style="text-align:right;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:150px;">BONIFICACION</span>
+                        </div>
+                        <label class="form-control"> {{ venta.bonificacion | currency }} </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="input-group" style="text-align:right;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width:150px;">TOTAL</span>
+                        </div>
+                        <label class="form-control"> {{ venta.total | currency }} </label>
+                    </div>
+                </div>
+
+                <br />
+
+                @* botones 1 *@
+                <div style="text-align:right;" ng-show="mostrarBotones1">
+                    <button class="btn btn-danger" ng-click="Confirmar()">Cancelar</button>
+                    <button class="btn btn-success" ng-click="crearOpciones();desactivarTablaArticulos = true;" ng-disabled="!ventaForm.$valid">Siguiente</button>
+                </div>
+
+                <br />
+
+            </div>
+
+        </div>
+
+        <br />
+
+        @* tabla opciones *@
+        <table class="table table-striped table-hover" ng-show="mostrarOpciones">
+            <tr ng-repeat="opcion in opciones">
+                <td style="text-align:center;">
+                    {{ opcion.plazo }}
+                </td>
+                <td style="text-align:center;">
+                    ABONOS DE
+                </td>
+                <td style="text-align:right;">
+                    {{ opcion.abono | currency }}
+                </td>
+                <td style="text-align:right;">
+                    TOTAL A PAGAR
+                </td>
+                <td style="text-align:right;">
+                    {{ opcion.pagar | currency }}
+                </td>
+                <td style="text-align:right;">
+                    SE AHORRA
+                </td>
+
+                <td style="text-align:right;">
+                    {{ opcion.ahorro | currency }}
+                </td>
+                <td style="text-align:center;">
+                    <input type="radio" name="optradio" ng-click="seleccionarOpcion(opcion);">
+                </td>
+            </tr>
+        </table>
+
+        <br />
+
+        @* botones 2 *@
+        <div style="text-align:right;" ng-show="mostrarBotones2">
+            <button class="btn btn-danger" ng-click="Confirmar()">Cancelar</button>
+            <button class="btn btn-primary" ng-click="Registrar()" ng-disabled="!opcion.plazo > 0">Registrar</button>
+        </div>
+
+        <br />
+
+    </form>
+
+</div>

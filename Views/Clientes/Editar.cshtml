@@ -1,0 +1,75 @@
+﻿
+<hr />
+
+<div class="container" style="max-width:800px;" ng-app="LaVendimiApp">
+    
+    <form ng-controller="clienteController" name="clienteForm">
+
+        @* titulo *@
+        <div style="float:left;" class="form-group">
+            <h4> {{ titulo }} </h4>
+        </div>
+
+        @* folio *@
+        <div style="float:right;color:green;" class="form-group">
+            <strong> Folio: {{ ('000' + folio).slice(-4) }} </strong>
+        </div>
+
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:150px;">Nombre</span>
+                </div>
+                <input type="text" class="form-control" name="nombre" ng-model="cliente.nombre" placeholder="Ingrese nombre" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="clienteForm.nombre.$touched && clienteForm.nombre.$invalid">El nombre es requerido.</span>
+        </div>
+
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:150px;">Apellido paterno</span>
+                </div>
+                <input type="text" class="form-control" name="paterno" ng-model="cliente.paterno" placeholder="Ingrese apellido paterno" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="clienteForm.paterno.$touched && clienteForm.paterno.$invalid">El apellido paterno es requerido.</span>
+        </div>
+
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:150px;">Apellido materno</span>
+                </div>
+                <input type="text" class="form-control" name="materno" ng-model="cliente.materno" placeholder="Ingrese apellido materno" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="clienteForm.materno.$touched && clienteForm.materno.$invalid">El apellido materno es requerido.</span>
+        </div>
+
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:150px;">RFC</span>
+                </div>
+                <input type="text" class="form-control" name="rfc" ng-model="cliente.rfc" placeholder="Ingrese RFC" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="clienteForm.rfc.$touched && clienteForm.rfc.$invalid">El RFC es requerido.</span>
+        </div>
+
+        <br />
+
+        <div class="form-group" style="float:right;">
+            <button class="btn btn-danger" ng-click="Confirmar()">Cancelar</button>
+            <button class="btn btn-primary" ng-click="Guardar(cliente)" ng-disabled="!clienteForm.$valid">Guardar</button>
+        </div>
+
+    </form>
+
+</div>

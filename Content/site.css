@@ -1,0 +1,81 @@
+﻿/* The sidenav */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Page content */
+#main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.superior {
+    width: 100%;
+    padding-top: 20px;
+}
+
+/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+/* main layout
+----------------------------------------------------------*/
+.content-wrapper {
+    margin: 0 auto;
+    width: 850px;
+}
+
+header .content-wrapper {
+    padding-top: 20px;
+}
+
+/* site title
+----------------------------------------------------------*/
+#titulo {
+    color:green;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 32px;
+    margin-bottom: 20px;
+    position: absolute;
+}
+
+.titulo a, .titulo a:hover, .titulo a:active {
+    background: none;
+    color:green;
+    outline: none;
+    text-decoration: none;
+}

@@ -1,0 +1,65 @@
+﻿<hr />
+
+<div class="container" ng-app="LaVendimiApp">
+    <div ng-controller="articulosController">
+
+        <h2 style="text-align:center;">
+            Articulos
+        </h2>
+
+        <div class="float-right">
+            <button class="btn btn-primary" ng-click="Editar(0)">
+                Nuevo &nbsp <i class="fa fa-plus"></i>
+            </button>
+        </div>
+
+        <br />
+
+        <br />
+
+        <table cellpadding="12" class="table table-striped table-hover">
+            <tr>
+                <td style="text-align:center">
+                    <b>ID</b>
+                </td>
+                <td style="text-align:left">
+                    <b>Descripcion</b>
+                </td>
+                <td style="text-align:left">
+                    <b>Modelo</b>
+                </td>
+                <td style="text-align:right">
+                    <b>Precio</b>
+                </td>
+                <td style="text-align:right">
+                    <b>Existencia</b>
+                </td>
+                <td style="text-align:center">
+                    <b>Editar</b>
+                </td>
+            </tr>
+            <tr ng-repeat="articulo in articulos">
+                <td style="text-align:center">
+                    {{articulo.id}}
+                </td>
+                <td style="text-align:left">
+                    {{articulo.descripcion}}
+                </td>
+                <td style="text-align:left">
+                    {{articulo.modelo}}
+                </td>
+                <td style="text-align:right">
+                    {{articulo.precio | currency }}
+                </td>
+                <td style="text-align:right">
+                    {{articulo.existencia}}
+                </td>
+                <td style="text-align:center">
+                    <button class="btn btn-success" ng-click="Editar(articulo.id)">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

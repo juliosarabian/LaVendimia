@@ -1,0 +1,63 @@
+﻿<hr />
+
+<div class="container" ng-app="LaVendimiApp">
+    <div ng-controller="ventasController">
+
+        <h2 style="text-align:center;">
+            Ventas
+        </h2>
+
+        <div class="float-right">
+            <button class="btn btn-primary" ng-click="Nueva()">
+                Nueva &nbsp <i class="fa fa-plus"></i>
+            </button>
+        </div>
+
+        <br />
+
+        <br />
+
+        <table cellpadding="12" class="table table-striped table-hover">
+            <tr>
+                <td style="text-align:center">
+                    <b>ID</b>
+                </td>
+                <td style="text-align:center">
+                    <b>Clave cliente</b>
+                </td>
+                <td style="text-align:left">
+                    <b>Nombre cliente</b>
+                </td>
+                <td style="text-align:right">
+                    <b>Total</b>
+                </td>
+                <td style="text-align:center">
+                    <b>Fecha</b>
+                </td>
+                <td style="text-align:center">
+                    <b>Estatus</b>
+                </td>
+            </tr>
+            <tr ng-repeat="venta in ventas">
+                <td style="text-align:center">
+                    {{venta.id}}
+                </td>
+                <td style="text-align:center">
+                    {{venta.cliente_id}}
+                </td>
+                <td style="text-align:left">
+                    {{venta.cliente_nombre}}
+                </td>
+                <td style="text-align:right">
+                    {{venta.total | currency }}
+                </td>
+                <td style="text-align:center">
+                    {{ venta.fecha | date:'dd/MM/yyyy' }}
+                </td>
+                <td style="text-align:center">
+                    {{venta.estatus}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

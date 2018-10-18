@@ -1,0 +1,75 @@
+﻿
+<hr />
+
+<div class="container" style="max-width:800px;" ng-app="LaVendimiApp">
+
+    <form ng-controller="articuloController" name="articuloForm">
+        
+        @* titulo *@
+        <div style="float:left;" class="form-group">
+            <h4> {{ titulo }} </h4>
+        </div>
+
+        @* folio *@
+        <div style="float:right;color:green;" class="form-group">
+            <strong> Folio: {{ ('000' + folio).slice(-4) }} </strong>
+        </div>
+
+        <br />
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:120px;">Descripcion</span>
+                </div>
+                <input type="text" class="form-control" name="descripcion" ng-model="articulo.descripcion" placeholder="Ingrese descripcion" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="articuloForm.descripcion.$touched && articuloForm.descripcion.$invalid">La descripcion es requerida.</span>
+        </div>
+
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:120px;">Modelo</span>
+                </div>
+                <input type="text" class="form-control" name="modelo" ng-model="articulo.modelo" placeholder="Ingrese modelo" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="articuloForm.modelo.$touched && articuloForm.modelo.$invalid">El modelo es requerido.</span>
+        </div>
+
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:120px;">Precio</span>
+                </div>
+                <input type="text" class="form-control" name="precio" ng-model="articulo.precio" placeholder="Ingrese precio" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="articuloForm.precio.$touched && articuloForm.precio.$invalid">El precio es requerido.</span>
+        </div>
+
+        <br />
+
+        <div>
+            <div class="input-group" style="width:100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width:120px;">Existencia</span>
+                </div>
+                <input type="text" class="form-control" name="existencia" ng-model="articulo.existencia" placeholder="Ingrese existencia" autocomplete="off" required>
+            </div>
+            <span style="color:crimson;" ng-show="articuloForm.existencia.$touched && articuloForm.existencia.$invalid">La existencia es requerida.</span>
+        </div>
+
+        <br />
+
+        <div class="form-group" style="float:right;">
+            <button class="btn btn-danger" ng-click="Confirmar()">Cancelar</button>
+            <button class="btn btn-primary" ng-click="Guardar(articulo)" ng-disabled="!articuloForm.$valid">Guardar</button>
+        </div>
+
+    </form>
+</div>

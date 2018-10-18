@@ -1,0 +1,61 @@
+﻿<hr />
+
+<div ng-app="LaVendimiApp">
+    <div class="container" ng-controller="configuracionController">
+
+        <h2 style="text-align:center;">Configuración</h2>
+
+        <br />
+
+        <form name="configuracionForm">
+            <table cellpadding="12" class="table table-striped table-hover">
+                <tr>
+                    <td style="text-align:center;">
+                        <b>Número máximo de plazos</b>
+                    </td>
+                    <td style="text-align:center;">
+                        <b>Porcentaje mínimo de enganche</b>
+                    </td>
+                    <td style="text-align:center;">
+                        <b>Tasa de financiamiento</b>
+                    </td>
+                    <td>
+                        <b>Editar</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;">
+                        <input type="text" style="text-align:center;" name="plazos" ng-model="configuracion.plazos_maximos" ng-disabled="!editar" autocomplete="off" required>
+                        <span style="color:crimson;" ng-show="configuracionForm.plazos.$touched && configuracionForm.plazos.$invalid">Este dato es requerido.</span>
+                    </td>
+                    <td style="text-align:center;">
+                        <input type="text" style="text-align:center;" name="porcentaje" ng-model="configuracion.porcentaje_enganche" ng-disabled="!editar" autocomplete="off" required>
+                        <span style="color:crimson;" ng-show="configuracionForm.porcentaje.$touched && configuracionForm.porcentaje.$invalid">Este dato es requerido.</span>
+                    </td>
+                    <td style="text-align:center;">
+                        <input type="text" style="text-align:center;" name="tasa" ng-model="configuracion.tasa_financiamiento" ng-disabled="!editar" autocomplete="off" required>
+                        <span style="color:crimson;" ng-show="configuracionForm.tasa.$touched && configuracionForm.tasa.$invalid">Este dato es requerido.</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-success" ng-click="Editar(configuracion)">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+            <hr />
+
+            <div class="container" ng-show="editar">
+
+                <div class="form-group" style="float:right;">
+                    <button class="btn btn-danger" ng-click="Confirmar()">Cancelar</button>
+                    <button class="btn btn-primary" ng-click="Guardar(configuracion)" ng-disabled="!configuracionForm.$valid">Guardar</button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
